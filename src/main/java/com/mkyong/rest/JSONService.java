@@ -189,7 +189,6 @@ public class JSONService {
 		ResponseMyAccounts reply = new ResponseMyAccounts();
 		ArrayList<ResponseAccountById> accounts = new ArrayList<ResponseAccountById>();
 		INGCONSTANT.getAccountList().clear();
-		myAccountsList.remove(3);
 		for(final MyAccounts myAccount: myAccountsList){
 			try {
 
@@ -226,10 +225,6 @@ public class JSONService {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(INGCONSTANT.getAccountList().get(0).getAmount());
-		System.out.println(INGCONSTANT.getAccountList().get(1).getAmount());
-		System.out.println(INGCONSTANT.getAccountList().get(2).getAmount());
-
 
 		reply.setNumOfAccounts(String.valueOf(INGCONSTANT.getAccountList().size()));
 		reply.setDisplayname(user_name);
