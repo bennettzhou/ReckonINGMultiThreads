@@ -205,6 +205,7 @@ public class JSONService {
 						}
 					}
 				});
+				Thread.sleep(1500);
 				/*ResponseAccountById accountById = getAccountById(user_name, myAccount.getBank_id(), myAccount.getId());
 				if(INGCONSTANT.getAccountMap().get(accountById.getNumber()) == null){
 					HashMap<String, String> map = INGCONSTANT.getAccountMap();
@@ -235,8 +236,6 @@ public class JSONService {
 		reply.setDisplayname(user_name);
 		reply.setAccountList(accounts);
 */
-
-
 		return reply;
 	}
 
