@@ -48,7 +48,7 @@ import java.util.concurrent.ExecutionException;
 public class JSONService {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	final static String BaseUrl = "https://apisandbox.openbankproject.com/obp/v2.0.0";
+	final static String BaseUrl = "https://apisandbox.openbankproject.com/obp/v2.2.0”;
 	private static INGConstant INGCONSTANT = INGConstant.getInstance();
 
 	public JSONService() {
