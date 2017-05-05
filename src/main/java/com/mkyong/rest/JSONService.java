@@ -22,6 +22,7 @@ import com.mkyong.rest.TransactionHistById.ResponseTransactionhistById;
 import com.mkyong.rest.TransactionHistById.TransactionHistBean;
 import com.mkyong.rest.TransactionHistById.TransactionHistById;
 import com.mkyong.rest.TransactionHistById.Transactions;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -48,7 +49,7 @@ import java.util.concurrent.ExecutionException;
 public class JSONService {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	final static String BaseUrl = "https://apisandbox.openbankproject.com/obp/v2.2.0”;
+	final static String BaseUrl = "https://apisandbox.openbankproject.com/obp/v2.2.0";
 	private static INGConstant INGCONSTANT = INGConstant.getInstance();
 
 	public JSONService() {
@@ -80,7 +81,7 @@ public class JSONService {
 	@GET
 	@Path("/getMyTransactionHistory")
 	@Produces("application/json")
-	public ResponseTransactionhistById getMyTransactionHistory(@QueryParam("user_name")String user_name) {
+	public ResponseTransactionhistById getMyTransactionHistory(@QueryParam("user_name")final String user_name) {
 
 		String message = getResponse(user_name,BaseUrl+"/my/accounts");
 		Gson gson = new Gson();
@@ -88,20 +89,38 @@ public class JSONService {
 		List<MyAccounts> myAccountsList = gson.fromJson(message, type);
 
 		ResponseTransactionhistById reply = new ResponseTransactionhistById();
-		Map<String, TransactionHistBean> AllMyHistory = new HashMap<String, TransactionHistBean>();
-		for(MyAccounts myAccount: myAccountsList){
+		INGCONSTANT.getMyTransactionHist().clear();
+		INGCONSTANT.clearCount();
+		for(final MyAccounts myAccount: myAccountsList){
 			try {
-				ResponseTransactionhistById transactionHist =
-						getTransactionHistoryById(user_name, myAccount.getBank_id(), myAccount.getId());
-				for(TransactionHistBean bean : transactionHist.getTransactionList()){
-					AllMyHistory.put(bean.getTransactionId() + ":" +bean.getCompletedDateTime(), bean);
-				}
+				Executors.newSingleThreadExecutor().execute(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Multi-threading in processing..."+myAccount.getId());
+						ResponseTransactionhistById transactionHist =
+								getTransactionHistoryById(user_name, myAccount.getBank_id(), myAccount.getId());
+						for(TransactionHistBean bean : transactionHist.getTransactionList()){
+							INGCONSTANT.getMyTransactionHist().put(bean.getTransactionId() + ":" +bean.getCompletedDateTime(), bean);
+						}
+						INGCONSTANT.increaseCount();
+					}
+				});
+
 			}catch(Exception e){
 				log.error(e.toString());
 			}
 		}
+		int i=0;
+		while(!(INGCONSTANT.getCount() == myAccountsList.size()) && i<80){
+			try {
+				Thread.sleep(500);
+				i++;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 
-		List<String> datelist = new ArrayList<String>(AllMyHistory.keySet());
+		List<String> datelist = new ArrayList<String>(INGCONSTANT.getMyTransactionHist().keySet());
 		Collections.sort(datelist, new Comparator<String>() {
 			DateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
 			@Override
@@ -116,7 +135,7 @@ public class JSONService {
 
 		ArrayList<TransactionHistBean> AllMyHistoryList = new ArrayList<TransactionHistBean>();
 		for(String a: datelist){
-			AllMyHistoryList.add(AllMyHistory.get(a));
+			AllMyHistoryList.add(INGCONSTANT.getMyTransactionHist().get(a));
 		}
 
 		reply.setNumOfTranx(String.valueOf(AllMyHistoryList.size()));
@@ -178,9 +197,7 @@ public class JSONService {
 	@GET
 	@Path("/getMyAccounts")
 	@Produces("application/json")
-	//http://localhost:8080/ReckonINGExample/getMyAccounts?user_name=bennettzhou1
 	public ResponseMyAccounts getMyAccounts(@QueryParam("user_name")final String user_name){
-
 		String message = getResponse(user_name,BaseUrl+"/my/accounts");
 		Gson gson = new Gson();
 		Type type = new TypeToken<List<MyAccounts>>() {}.getType();
@@ -191,7 +208,6 @@ public class JSONService {
 		INGCONSTANT.getAccountList().clear();
 		for(final MyAccounts myAccount: myAccountsList){
 			try {
-
 				Executors.newSingleThreadExecutor().execute(new Runnable() {
 					@Override
 					public void run() {
@@ -205,22 +221,15 @@ public class JSONService {
 						}
 					}
 				});
-				Thread.sleep(2000);
-				/*ResponseAccountById accountById = getAccountById(user_name, myAccount.getBank_id(), myAccount.getId());
-				if(INGCONSTANT.getAccountMap().get(accountById.getNumber()) == null){
-					HashMap<String, String> map = INGCONSTANT.getAccountMap();
-					map.put(accountById.getNumber(), accountById.getId());
-					INGCONSTANT.setAccountMap(map);
-				}
-				accounts.add(accountById);*/
+
 			}catch(Exception e){
 				log.error(e.toString());
 			}
 		}
 		int i=0;
-		while(!(INGCONSTANT.getAccountList().size() == myAccountsList.size()) && i<50){
+		while(!(INGCONSTANT.getAccountList().size() == myAccountsList.size()) && i<80){
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 				i++;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -231,11 +240,6 @@ public class JSONService {
 		reply.setDisplayname(user_name);
 		reply.setAccountList(INGCONSTANT.getAccountList());
 
-		/*
-		reply.setNumOfAccounts(String.valueOf(accounts.size()));
-		reply.setDisplayname(user_name);
-		reply.setAccountList(accounts);
-*/
 		return reply;
 	}
 
@@ -526,7 +530,7 @@ public class JSONService {
 		return "ERROR!!!";
 	}
 
-	public String getResponse(String user, String url) {
+	public synchronized String getResponse(String user, String url) {
 		String message="";
 		if(user==null)
 			user=INGCONSTANT.getDefaultUser();

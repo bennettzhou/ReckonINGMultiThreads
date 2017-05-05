@@ -4,6 +4,7 @@ import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.oauth.OAuth10aService;
 import com.mkyong.rest.OBPObjects.ResponseAccountById;
+import com.mkyong.rest.TransactionHistById.TransactionHistBean;
 import com.mkyong.rest.Utils.CacheUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +23,6 @@ public class INGConstant {
     final static String DefaultUser="bennettzhou1";
     final static String apiKey="f1y3h5r2sqn02jz2mu2gljfcl5nqh3nxz0jcclte";
     final static String apiSecret="khtirqdmxqu5dmtmkk1fvuoayn11c21vqokmhcyc";
-
-    final public static String BaseUrl = "https://apisandbox.openbankproject.com/obp/v2.0.0";
 
     //this field contains the single instance every initialized.
     private static INGConstant ingConstant;
@@ -65,9 +64,27 @@ public class INGConstant {
     private static HashMap<Integer, OAuth10aService> serviceMap;
 
     public static ArrayList<ResponseAccountById> accountList = new ArrayList<ResponseAccountById>();;
+    public static HashMap<String, TransactionHistBean> MyTransactionHist = new HashMap<String, TransactionHistBean>();;
+    public static int count = 0;
 
-    public ArrayList<ResponseAccountById> getAccountList() {
+    public synchronized ArrayList<ResponseAccountById> getAccountList() {
         return accountList;
+    }
+
+    public synchronized HashMap<String, TransactionHistBean> getMyTransactionHist() {
+        return MyTransactionHist;
+    }
+
+    public synchronized int getCount(){
+        return count;
+    }
+
+    public synchronized void clearCount(){
+        count=0;
+    }
+
+    public synchronized void increaseCount(){
+        count++;
     }
 
     public void setAccountList(ArrayList<ResponseAccountById> accountList) {
@@ -144,7 +161,7 @@ public class INGConstant {
         return accountMap;
     }
 
-    public void setAccountMap(HashMap<String, String> accountMap) {
+    public synchronized void setAccountMap(HashMap<String, String> accountMap) {
         INGConstant.accountMap = accountMap;
     }
 }
