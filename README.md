@@ -29,19 +29,28 @@ https://my-reckoning.herokuapp.com/ReckonINGExample/getTransactionHistoryById?us
 <li>Check ALL Transaction history of user iamsam (sorted by completion datetime in descendent)</li>
 https://my-reckoning.herokuapp.com/ReckonINGExample/getMyTransactionHistory?user_name=iamsam
 
-
+<br/>
+<br/>
 
 <b>Loan Calculator:</b>
+<br/>
+<br/>
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=ING
-
+<br/>
+<br/>
 
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=SCB
-
+<br/>
+<br/>
 
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=OCBC
-
+<br/>
+<br/>
 
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=CITI
-
+<br/>
+<br/>
 
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=HSBC
+<br/>
+<br/>
