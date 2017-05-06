@@ -57,27 +57,27 @@ https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=5
 
 
 
-short name mapping
-BanksShortName.put("at02-1465--01", "Netherlands Bank");
-BanksShortName.put("at02-0075--01", “Banco popular”);
-BanksShortName.put("at02-0182--01", "Spanish Bank");
-BanksShortName.put("at02-0019--01", "German Bank");
-BanksShortName.put("at02-0073--01", “Open Bank”);
-BanksShortName.put("at03-0019", "German Bank");
-BanksShortName.put("at02-0049--01", “Santander Bank");
+short name mapping<br/>
+BanksShortName.put("at02-1465--01", "Netherlands Bank");<br/>
+BanksShortName.put("at02-0075--01", “Banco popular”);<br/>
+BanksShortName.put("at02-0182--01", "Spanish Bank");<br/>
+BanksShortName.put("at02-0019--01", "German Bank");<br/>
+BanksShortName.put("at02-0073--01", “Open Bank”);v
+BanksShortName.put("at03-0019", "German Bank");<br/>
+BanksShortName.put("at02-0049--01", “Santander Bank");<br/>
 
-users: iamsam (account of Sam)   password: Bennett0910!
-Account list:
-iamsam_ing   "at02-1465--01", "Netherlands Bank"
-iamsam_spain  "at02-0182--01", "Spanish Bank"
-iamsam_db   "at02-0019--01", "German Bank"
-iamsam_san   "at02-0049--01", “Santander Bank"
+users: iamsam (account of Sam)   password: Bennett0910!<br/>
+Account list:<br/>
+iamsam_ing   "at02-1465--01", "Netherlands Bank"<br/>
+iamsam_spain  "at02-0182--01", "Spanish Bank"<br/>
+iamsam_db   "at02-0019--01", "German Bank"<br/>
+iamsam_san   "at02-0049--01", “Santander Bank"<br/>
 
 
-users: iamben (account of Ben)   password: Bennett0910!
-Account list:
-iamben_ing   "at02-1465--01", "Netherlands Bank"
-iamben_db   "at02-0019--01", "German Bank" (GBP account)
-iamben_open   "at02-0073--01", “Open Bank”
-iamben_pop  "at02-0075--01", “Banco popular”
+users: iamben (account of Ben)   password: Bennett0910!<br/>
+Account list:<br/>
+iamben_ing   "at02-1465--01", "Netherlands Bank"<br/>
+iamben_db   "at02-0019--01", "German Bank" (GBP account)<br/>
+iamben_open   "at02-0073--01", “Open Bank”<br/>
+iamben_pop  "at02-0075--01", “Banco popular”<br/>
 
