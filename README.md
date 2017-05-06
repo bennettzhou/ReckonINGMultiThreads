@@ -54,3 +54,30 @@ https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=5
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=HSBC
 <br/>
 <br/>
+
+
+
+short name mapping
+BanksShortName.put("at02-1465--01", "Netherlands Bank");
+BanksShortName.put("at02-0075--01", “Banco popular”);
+BanksShortName.put("at02-0182--01", "Spanish Bank");
+BanksShortName.put("at02-0019--01", "German Bank");
+BanksShortName.put("at02-0073--01", “Open Bank”);
+BanksShortName.put("at03-0019", "German Bank");
+BanksShortName.put("at02-0049--01", “Santander Bank");
+
+users: iamsam (account of Sam)   password: Bennett0910!
+Account list:
+iamsam_ing   "at02-1465--01", "Netherlands Bank"
+iamsam_spain  "at02-0182--01", "Spanish Bank"
+iamsam_db   "at02-0019--01", "German Bank"
+iamsam_san   "at02-0049--01", “Santander Bank"
+
+
+users: iamben (account of Ben)   password: Bennett0910!
+Account list:
+iamben_ing   "at02-1465--01", "Netherlands Bank"
+iamben_db   "at02-0019--01", "German Bank" (GBP account)
+iamben_open   "at02-0073--01", “Open Bank”
+iamben_pop  "at02-0075--01", “Banco popular”
+
