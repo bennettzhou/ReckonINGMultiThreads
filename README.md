@@ -57,7 +57,7 @@ https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=5
 
 
 
-<li>short name mapping</li><br/>
+<li>short name mapping</li>
 BanksShortName.put("at02-1465--01", "Netherlands Bank");<br/>
 BanksShortName.put("at02-0075--01", “Banco popular”);<br/>
 BanksShortName.put("at02-0182--01", "Spanish Bank");<br/>
@@ -66,7 +66,7 @@ BanksShortName.put("at02-0073--01", “Open Bank”);v
 BanksShortName.put("at03-0019", "German Bank");<br/>
 BanksShortName.put("at02-0049--01", “Santander Bank");<br/>
 
-<li>users: iamsam (account of Sam)   password: Bennett0910!</li><br/>
+<li>users: iamsam (account of Sam)   password: Bennett0910!</li>
 Account list:<br/>
 iamsam_ing   "at02-1465--01", "Netherlands Bank"<br/>
 iamsam_spain  "at02-0182--01", "Spanish Bank"<br/>
@@ -74,7 +74,7 @@ iamsam_db   "at02-0019--01", "German Bank"<br/>
 iamsam_san   "at02-0049--01", “Santander Bank"<br/>
 
 
-<li>users: iamben (account of Ben)   password: Bennett0910!</li><br/>
+<li>users: iamben (account of Ben)   password: Bennett0910!</li>
 Account list:<br/>
 iamben_ing   "at02-1465--01", "Netherlands Bank"<br/>
 iamben_db   "at02-0019--01", "German Bank" (GBP account)<br/>
