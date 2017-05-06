@@ -13,9 +13,11 @@ public class MyTransactions
 
     private String challenge;
 
+    private Details details;
+
     private String status;
 
-    private String transaction_ids;
+    private String[] transaction_ids;
 
     private From from;
 
@@ -63,6 +65,16 @@ public class MyTransactions
         this.challenge = challenge;
     }
 
+    public Details getDetails ()
+    {
+        return details;
+    }
+
+    public void setDetails (Details details)
+    {
+        this.details = details;
+    }
+
     public String getStatus ()
     {
         return status;
@@ -73,12 +85,12 @@ public class MyTransactions
         this.status = status;
     }
 
-    public String getTransaction_ids ()
+    public String[] getTransaction_ids ()
     {
         return transaction_ids;
     }
 
-    public void setTransaction_ids (String transaction_ids)
+    public void setTransaction_ids (String[] transaction_ids)
     {
         this.transaction_ids = transaction_ids;
     }
@@ -116,6 +128,6 @@ public class MyTransactions
     @Override
     public String toString()
     {
-        return "ClassPojo [id = "+id+", end_date = "+end_date+", charge = "+charge+", challenge = "+challenge+", status = "+status+", transaction_ids = "+transaction_ids+", from = "+from+", type = "+type+", start_date = "+start_date+"]";
+        return "MyTransactions [id = "+id+", end_date = "+end_date+", charge = "+charge+", challenge = "+challenge+", details = "+details+", status = "+status+", transaction_ids = "+transaction_ids+", from = "+from+", type = "+type+", start_date = "+start_date+"]";
     }
 }

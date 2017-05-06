@@ -22,7 +22,6 @@ import com.mkyong.rest.TransactionHistById.ResponseTransactionhistById;
 import com.mkyong.rest.TransactionHistById.TransactionHistBean;
 import com.mkyong.rest.TransactionHistById.TransactionHistById;
 import com.mkyong.rest.TransactionHistById.Transactions;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -49,7 +48,7 @@ import java.util.concurrent.ExecutionException;
 public class JSONService {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	final static String BaseUrl = "https://apisandbox.openbankproject.com/obp/v2.2.0";
+	final static String BaseUrl = "https://psd2-api.openbankproject.com/obp/v2.2.0";
 	private static INGConstant INGCONSTANT = INGConstant.getInstance();
 
 	public JSONService() {
@@ -155,7 +154,7 @@ public class JSONService {
 		AccountById obj = gson.fromJson(message, AccountById.class);
 		ResponseAccountById reply = new ResponseAccountById();
 
-		reply.setAmount(obj.getBalance().getAmount());
+		reply.setAmount(toDouble(obj.getBalance().getAmount()));
 		reply.setBank_fullname(INGCONSTANT.getBANKS().get(obj.getBank_id()));
 		reply.setBank_shortname(INGCONSTANT.getBanksShortName().get(obj.getBank_id()));
 		reply.setBank_id(obj.getBank_id());
@@ -227,13 +226,17 @@ public class JSONService {
 			}
 		}
 		int i=0;
-		while(!(INGCONSTANT.getAccountList().size() == myAccountsList.size()) && i<80){
+		while(!(INGCONSTANT.getAccountList().size() == myAccountsList.size()) && i<50){
 			try {
 				Thread.sleep(500);
 				i++;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+
+		for(ResponseAccountById amount : INGCONSTANT.getAccountList()){
+			System.out.println(amount.getAmount());
 		}
 
 		reply.setNumOfAccounts(String.valueOf(INGCONSTANT.getAccountList().size()));
@@ -314,7 +317,7 @@ public class JSONService {
 			String frombank_id, @QueryParam("fromid") String fromid, @QueryParam("amount")
 			String amount, @QueryParam("tobank_id") String tobank_id, @QueryParam("toid") String toid) {
 
-		String urlTransaction = "https://apisandbox.openbankproject.com/obp/v2.0.0/banks/%s/accounts/%s/owner/transaction-request-types/SANDBOX_TAN/transaction-requests";
+		String urlTransaction = BaseUrl+"/banks/%s/accounts/%s/owner/transaction-request-types/SANDBOX_TAN/transaction-requests";
 		String url = String.format(urlTransaction, frombank_id, fromid);
 		String sendingEntity = "{\"to\":{\"bank_id\":\""+tobank_id+"\", \"account_id\":\""+toid+"\"}, \"value\":{\"currency\":\"EUR\", \"amount\":\"" + amount+"\"},  \"description\":\"Alexa voice transaction!\"}";
 
@@ -322,7 +325,7 @@ public class JSONService {
 		Gson gson = new Gson();
 		MyTransactions obj = gson.fromJson(stringMessage, MyTransactions.class);
 		ResponseMyTransactions reply = new ResponseMyTransactions();
-		reply.setTransaction_ids(obj.getTransaction_ids());
+		reply.setTransaction_ids(obj.getTransaction_ids()[0]);
 		reply.setAccount_id(obj.getFrom().getAccount_id());
 		reply.setBank_id(obj.getFrom().getBank_id());
 		reply.setBank_fullname(INGCONSTANT.getBANKS().get(obj.getFrom().getBank_id()));
@@ -488,14 +491,7 @@ public class JSONService {
 	public String postResponse(String user, String url, String sendingEntity) {
 		
 		try {
-			/*
-			OAuthRequest request = CacheUtils.getRequestMap(user, url+"_"+sendingEntity);
-			if (request == null) {
-				log.info("Initiating Request for user+url="+user+"_"+url);
-				request = initiateTransaction(user, url, sendingEntity);
-				CacheUtils.putRequestMap(user, url+"_"+sendingEntity, request);
-			}
-			*/
+
 			OAuth10aService service = INGCONSTANT.getServices();
 			OAuth1AccessToken token = getAccessToken(user);
 			OAuthRequest request = new OAuthRequest(Verb.POST, url);
@@ -536,14 +532,6 @@ public class JSONService {
 			user=INGCONSTANT.getDefaultUser();
 
 		try {
-			/*
-			OAuthRequest request = CacheUtils.getRequestMap(user, url);
-			if (request == null) {
-				log.info("Initiating Request for user+url="+user+"_"+url);
-				request = initiateRequest(user, url);
-				CacheUtils.putRequestMap(user, url, request);
-			}
-			*/
 			OAuth10aService service = INGCONSTANT.getServices();
 			OAuth1AccessToken token = getAccessToken(user);
 			OAuthRequest request = new OAuthRequest(Verb.GET, url);
@@ -563,42 +551,13 @@ public class JSONService {
 		return message;
 	}
 
-	private OAuthRequest initiateRequest(String user, String url) throws IllegalAccessException, InstantiationException {
-		OAuth1AccessToken token = getAccessToken(user);
-		OAuthRequest request = new OAuthRequest(Verb.GET, url);
-		INGCONSTANT.getService().signRequest(token, request);
-		return(request);
-	}
-
-	private OAuthRequest initiateTransaction(String user, String url, String sendingEntity) throws IllegalAccessException, InstantiationException, InterruptedException, ExecutionException, IOException {
-		OAuth1AccessToken token = getAccessToken(user);
-		OAuthRequest request = new OAuthRequest(Verb.POST, url);
-		request.addHeader("Content-Type", "application/json");
-		request.setPayload(sendingEntity);
-
-		System.out.println("\nPosting urlString: " + url);
-		System.out.println("SendingEntity: '" + sendingEntity + "'");
-		INGCONSTANT.getService().signRequest(token, request);
-		return request;
-	}
-
 	private OAuth1AccessToken getAccessToken(String user){
 		String[] keys = INGCONSTANT.getTestuser().getKeys().get(user);
 		return(new OAuth1AccessToken(keys[0], keys[1], keys[2]));
 	}
 
-
-	public static void main(String[] args) {
-
-		//getMyAccounts("bennettzhou1");
-
-		/*
-		String message = getResponse(BaseUrl+"/my/banks/rbs/accounts/BenAccount_1/account");
-		Gson gson = new Gson();
-		AccountById obj = gson.fromJson(message, AccountById.class);
-		System.out.println(obj.toString());
-		*/
+	private String toDouble(String a){
+		return Double.valueOf(a).toString();
 	}
-
 
 }

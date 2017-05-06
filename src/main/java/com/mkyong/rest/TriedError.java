@@ -26,8 +26,8 @@ public class TriedError {
     public static void main(String[] args) {
 
         final OAuth10aService service = new ServiceBuilder()
-                .apiKey("f1y3h5r2sqn02jz2mu2gljfcl5nqh3nxz0jcclte")
-                .apiSecret("khtirqdmxqu5dmtmkk1fvuoayn11c21vqokmhcyc")
+                .apiKey("4ynabm3l0uvbijpgg202sdg5xh5w4mcsp2yexncb")
+                .apiSecret("dnhza1xxje25dmauhgbcwgoydgi0ohht0x4q2dnm")
                 .callback("oob")
                 .build(OBPApi.instance());
 
@@ -67,7 +67,7 @@ public class TriedError {
 
             // Now let's go and ask for a protected resource!
             System.out.println("Now we're going to access a protected resource...");
-            final OAuthRequest request = new OAuthRequest(Verb.GET, "https://apisandbox.openbankproject.com/obp/v2.0.0/users/current");
+            final OAuthRequest request = new OAuthRequest(Verb.GET, "https://psd2-api.openbankproject.com/obp/v2.2.0/users/current");
             service.signRequest(accessToken, request);
             final com.github.scribejava.core.model.Response response = service.execute(request);
             System.out.println("Got it! Lets see what we found...");

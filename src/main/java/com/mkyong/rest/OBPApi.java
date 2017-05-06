@@ -11,7 +11,7 @@ import com.github.scribejava.core.model.OAuth1RequestToken;
  */
 
 public class OBPApi extends DefaultApi10a {
-    private static final String API_ENDPOINT = "https://apisandbox.openbankproject.com";
+    private static final String API_ENDPOINT = "https://psd2-api.openbankproject.com";
     private static final String REQUEST_TOKEN_RESOURCE = "/oauth/initiate";
     private static final String AUTHORIZE_URL = "/oauth/authorize?oauth_token=%s";
     private static final String ACCESS_TOKEN_RESOURCE = "/oauth/token";

@@ -20,9 +20,8 @@ import java.util.Vector;
 public class INGConstant {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    final static String DefaultUser="bennettzhou1";
-    final static String apiKey="f1y3h5r2sqn02jz2mu2gljfcl5nqh3nxz0jcclte";
-    final static String apiSecret="khtirqdmxqu5dmtmkk1fvuoayn11c21vqokmhcyc";
+    final static String DefaultUser="captionamerica";
+
 
     //this field contains the single instance every initialized.
     private static INGConstant ingConstant;
@@ -33,12 +32,12 @@ public class INGConstant {
         //initialize
         if(Credentials == null) {
             Credentials = new Vector<String>();
-            Credentials.add("0rtnu13khzngztzsfavye1o3g3txnfjz10e5d5aw:eav2uppqmxark3jzqfjwgw35d0uc41523z43yens");
-            Credentials.add("mlcxrtes30tkgoxz15ao1wufbhme4ueizg3zahdr:kzefwj3jwvofmcfktdwbwvry1udspwp2vgx45atb");
-            Credentials.add("3f4nzlnidfwubswxmec4bucmmoyjrand3c2umwxz:dgebrpphbml5gtxlxzeb450ezgqgfqypkyif3qvi");
-            Credentials.add("jtlmbubg0co203azvwqsps4anb5fu4zbne2ncrsd:nsca5irl2miftjd1ir3fldzevclmaoeo4kymvqu3");
-            Credentials.add("t2bkhqusrynonld2gam2gzabzcbjpqng4fkdxgkk:h4eyjmevbbhcwma5qdcbcnsstfwzc4ehmqiscjfd");
-            Credentials.add("fr2syz5sjoe5onmg2q4s54aetcdyxfsklgdfzzxo:e4zfunslbejhzwim4jndvmhlbcp0evna1qmpeyqk");
+            Credentials.add("4ynabm3l0uvbijpgg202sdg5xh5w4mcsp2yexncb:dnhza1xxje25dmauhgbcwgoydgi0ohht0x4q2dnm");
+            Credentials.add("jldfdsj2tgpugmvs3q5rjcyisaro50mfokxhvzzk:pyl2yvjprppmqnx3xswhjawerd34kn2igms2ydjj");
+            Credentials.add("fpals0435k42zgyameazpfqrxm0pdvxylk2gxadd:4hq0hhbofxyjpmhvxu4bg4rswse41fwz2pdgfexv");
+            Credentials.add("ff5ozmaatrfeb00t0iufgy0io5gtbod4ld51yyum:bcluzbfmphrvr31pprarp2uetlzzfhqnwu235o1t");
+            Credentials.add("g04y3vvisolazint0pt3jhnjl5yhw5ftpebiovpg:tll5mg0qrtgjvydbppvbggykgf5rpfikgkdchj03");
+            Credentials.add("ev4lqvijt0ffepqbsbtl3yqfcodeqg0ltu3qtb2u:wpvf1gaculsmrc33wib1pwb0iqbgmsyvnk2gldol");
         }
         initiateServices();
         log.info("INGConstant created...");
@@ -98,14 +97,12 @@ public class INGConstant {
     public HashMap<String, String> getBanksShortName() {
         if(BanksShortName == null){
             BanksShortName = new HashMap<String, String>();
-            BanksShortName.put("at.03.1465.es", "Netherlands Bank");
             BanksShortName.put("at02-1465--01", "Netherlands Bank");
-            BanksShortName.put("hsbc-test", "Hong Kong Bank");
-            BanksShortName.put("rbs", "Scotland Bank");
-            BanksShortName.put("deutche-test", "German Bank");
-            BanksShortName.put("in-bank-y-2", "Indian Bank");
-            BanksShortName.put("at03-0019", "German Bank");
-            BanksShortName.put("at02-0049--01", "Spanish Bank");
+            BanksShortName.put("at02-0182--01", "Spanish Bank");
+            BanksShortName.put("at02-0019--01", "German Bank");
+            BanksShortName.put("at02-0049--01", "Santander Bank");
+            BanksShortName.put("at02-0073--01", "Open Bank");
+            BanksShortName.put("at02-0075--01", "Banco Popular");
         }
         return BanksShortName;
     }
@@ -122,17 +119,6 @@ public class INGConstant {
         INGConstant.BANKS = BANKS;
     }
 
-    public OAuth10aService getService() {
-        if(service == null){
-            log.info("Initiating Service...");
-            service = new ServiceBuilder()
-                    .apiKey(apiKey)
-                    .apiSecret(apiSecret)
-                    .callback("oob")
-                    .build(OBPApi.instance());
-        }
-        return service;
-    }
 
     private void initiateServices() {
         serviceMap = new HashMap<Integer, OAuth10aService>();
