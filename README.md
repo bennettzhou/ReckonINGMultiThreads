@@ -34,30 +34,30 @@ https://my-reckoning.herokuapp.com/ReckonINGExample/getMyTransactionHistory?user
 
 <b>Loan Calculator:</b>
 <br/>
-<br/>
+
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=ING
 <br/>
-<br/>
+
 
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=SCB
 <br/>
-<br/>
+
 
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=OCBC
 <br/>
-<br/>
+
 
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=CITI
 <br/>
-<br/>
+
 
 https://my-reckoning.herokuapp.com/ReckonINGExample/loan-calculator?loanAmount=500000&numYears=15&currentAge=35&totalMonthlyDebt=3600&totalMonthlyIncome=8888&LoanType=HSBC
 <br/>
-<br/>
 
 
 
-short name mapping<br/>
+
+<li>short name mapping</li><br/>
 BanksShortName.put("at02-1465--01", "Netherlands Bank");<br/>
 BanksShortName.put("at02-0075--01", “Banco popular”);<br/>
 BanksShortName.put("at02-0182--01", "Spanish Bank");<br/>
@@ -66,7 +66,7 @@ BanksShortName.put("at02-0073--01", “Open Bank”);v
 BanksShortName.put("at03-0019", "German Bank");<br/>
 BanksShortName.put("at02-0049--01", “Santander Bank");<br/>
 
-users: iamsam (account of Sam)   password: Bennett0910!<br/>
+<li>users: iamsam (account of Sam)   password: Bennett0910!</li><br/>
 Account list:<br/>
 iamsam_ing   "at02-1465--01", "Netherlands Bank"<br/>
 iamsam_spain  "at02-0182--01", "Spanish Bank"<br/>
@@ -74,7 +74,7 @@ iamsam_db   "at02-0019--01", "German Bank"<br/>
 iamsam_san   "at02-0049--01", “Santander Bank"<br/>
 
 
-users: iamben (account of Ben)   password: Bennett0910!<br/>
+<li>users: iamben (account of Ben)   password: Bennett0910!</li><br/>
 Account list:<br/>
 iamben_ing   "at02-1465--01", "Netherlands Bank"<br/>
 iamben_db   "at02-0019--01", "German Bank" (GBP account)<br/>
